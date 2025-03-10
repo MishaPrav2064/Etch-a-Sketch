@@ -5,6 +5,7 @@ const containerWidth = parseFloat(styleContainer.width)
 const containerHeight = parseFloat(styleContainer.height)
 
 const inputColor = document.querySelector(".inputColor")
+const inputBackgroundColor = document.querySelector(".inputBackgroundColor")
 
 changeSize(16)
 
@@ -19,7 +20,7 @@ for (let i = 0; i < buttonSize.length; i++) {
     } else if (sizeValue === "resetColor"){
         buttonSize[i].addEventListener("click",resetColor)
     } else if (sizeValue === "squareBlack") {
-        buttonSize[i].addEventListener("click",() => switchToBlack)
+        buttonSize[i].addEventListener("click",() => switchToBlack())
     } else {
         buttonSize[i].addEventListener("click",() => changeSize(sizeValue))
     }
@@ -42,6 +43,7 @@ function changeSize(size) {
         square.style.width = (containerWidth / size) + "px";
         square.style.height = (containerHeight / size) + "px";
         square.style.border = ((containerWidth / size) / 20) + "px solid lightgray";
+        square.style.backgroundColor = "#ffffff";
         square.classList.add("square");
         // square.addEventListener("mouseover", () => {
         //     square.classList.add("hovered")
@@ -54,24 +56,20 @@ function changeSize(size) {
     }
 }
 
-// function resetColor() {
-//     const square = document.querySelectorAll(".square")
-//
-//     square.forEach((square) => square.classList.remove("hovered"))
-// }
-
 function resetColor() {
     const square = document.querySelectorAll(".square")
 
     square.forEach((square) => square.style.backgroundColor = "#ffffff")
 }
 
-// function switchToBlack() {
-//     const square = document.querySelectorAll(".square")
-//
-//     square.forEach(square => {
-//         if (window.getComputedStyle(square).backgroundColor !== "rgb(255, 255, 255)") {
-//             square.style.backgroundColor = "#000000"
-//         }
-//     })
-// }
+function switchToBlack() {
+    const square = document.querySelectorAll(".square")
+
+    square.forEach(square => {
+        const bgColor = window.getComputedStyle(square).backgroundColor;
+
+        if (bgColor !== "rgb(255, 255, 255)" && bgColor !== "rgba(0, 0, 0, 0)") {
+            square.style.backgroundColor = "#000000"
+        }
+    })
+}
